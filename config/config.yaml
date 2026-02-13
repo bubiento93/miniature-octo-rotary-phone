@@ -96,6 +96,8 @@ rss:
   # ⚠️ 过滤时机：在推送阶段过滤
   #    - 所有文章都会存入数据库（MCP Server 的 AI 查询仍可访问）
   #    - 只有新鲜的文章会被推送到通知渠道
+  rss:
+  enabled: true                      # 是否启用 RSS 抓取
   freshness_filter:
     enabled: true                     # 是否启用新鲜度过滤（默认启用）
 
@@ -107,25 +109,31 @@ rss:
   # - 不配置：使用全局 freshness_filter.max_age_days（默认 3 天）
   # - 正整数：覆盖全局设置，只推送此天数内的文章
   # - 0：禁用此频道的新鲜度过滤，推送所有文章
-feeds:                              # 关键修复：与freshness_filter同级缩进
+  rss:
+  enabled: true                       # 全局启用RSS抓取（必须为true）
+  freshness_filter:
+    enabled: true
+    max_age_days: 3
+  feeds:                              # 拼写正确+层级正确（与enabled同级，缩进2个空格）
     - id: "ruanyifeng"
       name: "阮一峰的网络日志"
       url: "http://www.ruanyifeng.com/blog/atom.xml"
-    
+      enabled: false                  # 仅这个源禁用，不影响其他
     - id: "yahoo-finance"
       name: "雅虎财经"
       url: "https://finance.yahoo.com/news/rssindex"
       max_age_days: 1
+      enabled: true                   # 显式启用（避免默认值异常）
     - id: "TASS"
       name: "塔斯社"
       url: "https://www.bing.com/news/search?q=全球新闻&format=RSS"
       max_age_days: 1
+      enabled: true
     - id: "HBR IdeaCast"
       name: "哈佛商业评论"
       url: "http://feeds.harvardbusiness.org/harvardbusiness/ideacast"
       max_age_days: 1
-
-
+      enabled: true
     # 自定义源示例
     # - id: "custom-feed"
     #   name: "自定义源"
