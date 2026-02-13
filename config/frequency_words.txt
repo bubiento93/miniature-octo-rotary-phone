@@ -283,3 +283,25 @@
 军工科技
 精密制造
 新材料
+[雅虎财经]
+Yahoo Finance
+stock market
+earnings report
+inflation
+Federal Reserve
+inflation
+commodities
+IPO
+
+[塔斯社]
+Russia news
+Russian policy
+energy policy
+
+[哈佛商业评论]
+HBR IdeaCast
+leadership
+business strategy
+innovatio
+management
+workplace development
