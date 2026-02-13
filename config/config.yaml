@@ -130,7 +130,7 @@ rss:
       enabled: true                   # 显式启用（避免默认值异常）
     - id: "TASS"
       name: "塔斯社"
-      url: "https://www.bing.com/news/search?q=全球新闻&format=RSS"
+      url: "http://tass.com/rss/v2.xml"
       max_age_days: 1
       enabled: true
     - id: "HBR IdeaCast"
