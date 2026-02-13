@@ -71,8 +71,8 @@ platforms:
       name: "36氪"
     - id: "thepaper"
       name: "澎湃新闻"
-    - id: xueqiu"
-      name: "雪球"
+    - id: "xueqiu"                   
+      name: "雪球热榜
     - id: "jin10"
       name: "金十数据"
     - id: "ifeng"
