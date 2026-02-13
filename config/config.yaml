@@ -75,10 +75,8 @@ platforms:
       name: "雪球"
     - id: "jin10"
       name: "金十数据"
-    - id: "sputniknews"
-      name: "卫星通讯社"
-    - id: "newsqq"
-      name: "腾讯新闻"
+    - id: "ifeng"
+      name: "凤凰网"
 # ===============================================================
 # 3. 数据源 - RSS 订阅
 #
