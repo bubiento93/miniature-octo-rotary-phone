@@ -512,16 +512,22 @@ ai_analysis:
 # 对推送内容进行多语言翻译，不包含 ai_analysis 分析的内容 
 # 模型配置见上方 ai 配置段
 # ===============================================================
-ai_translation:
-  enabled: true                    # 是否启用翻译功能
-
-  # 翻译目标语言
-  # 格式：自然语言描述
-  # 示例: "Chinese", "Korean", "法语"
-  language: "中文"
-
-  # 提示词配置文件路径（相对于 config 目录）
+  ai_translation:
+  enabled: true                    # 保持开启
+  language: "Chinese"              # 翻译目标语言（精准写中文，避免模型识别偏差）
   prompt_file: "ai_translation_prompt.txt"
+  # 新增：翻译范围配置（核心修复，指定包含RSS全量内容）
+  translate_scope:
+    hotlist: true                  # 翻译热榜新闻（保持原有）
+    rss: true                      # 强制翻译RSS新闻（标题+内容都译，核心修复项）
+    standalone: true               # 翻译独立展示区内容（含RSS）
+    title_only: false              # 关闭「仅翻译标题」，改为标题+内容全译（避免RSS内容漏译）
+  # 新增：RSS翻译专属规则
+  rss_translate:
+    force_translate: true          # 强制翻译所有RSS源，无视原语言
+    keep_original: false           # 不保留原文，直接替换为翻译后的中文
+    translate_description: true    # 同时翻译RSS的描述/正文内容）
+    prompt_file: "ai_translation_prompt.txt"
 
 
 # ===============================================================
