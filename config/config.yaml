@@ -61,18 +61,32 @@ rss:
     - id: "yahoo-finance"
       name: "雅虎财经"
       url: "https://finance.yahoo.com/news/rssindex"
-      max_age_days: 1
+      max_age_days: 3
       enabled: true
     - id: "TASS"
       name: "塔斯社"
       url: "http://tass.com/rss/v2.xml"
-      max_age_days: 1
+      max_age_days: 3
       enabled: true
     - id: "HBR IdeaCast"
       name: "哈佛商业评论"
       url: "http://feeds.harvardbusiness.org/harvardbusiness/ideacast"
-      max_age_days: 1
+      max_age_days: 3
       enabled: true
+    - id: "NYT"
+      name: "纽约时报"
+      url: "https://rss.nytimes.com/services/xml/rss/nyt/World.xml"
+      max_age_days: 3
+    - id: "BBC News - World"
+      name: "BBC英国"
+      url: "http://feeds.bbci.co.uk/news/world/rss.xml"
+      max_age_days: 3
+
+    - id: "people new"
+      name: "人民日报"
+      url: "http://www.people.com.cn/rss/ywkx.xml"
+      max_age_days: 3
+
 # ===============================================================
 # 4. 报告模式（修正重复，层级正确）
 # ===============================================================
