@@ -221,17 +221,21 @@ display:
     hotlist: true # 热榜区域（关键词匹配的热点新闻）
     rss: true # RSS 订阅区域
    # 独立展示区配置 - 开启关键词分类
-   standalone:
-   enable: true  # 开启独立展示区
-   max_items_per_source: 5  # 每个源最多展示5条（可自定义）
-   group_by: keyword  # 核心：按关键词分类（和主报告一致）
-   keyword_whitelist: []  # 空表示使用frequency_words.txt的所有关键词，如需指定分类填关键词组名（如["AI 相关","芯片","特斯拉"]）
-   sort_by: rank  # 按排名排序（也可改time按时间）
-   show_platform: true  # 显示来源平台
-   show_rank: true  # 显示排名
-   show_time: true  # 显示发布时间
-   dedup: true  # 开启独立展示区自身去重
-  match_global_filter: true  # 遵循全局过滤规则（过滤标题党/垃圾内容）
+  # 独立展示区配置 - 按关键词分类（标准YAML语法，无报错）
+standalone:
+    enable: true
+    max_items_per_source: 5
+    group_by: keyword
+    keyword_whitelist: []
+    sort_by: rank
+    show_platform: true
+    show_rank: true
+    show_time: true
+    dedup: true
+    match_global_filter: true
+    # 选择要展示的平台/RSS源（按需开启，和可视化编辑器一致）
+    include_platforms: []
+    include_rss: []
     ai_analysis: true # AI 分析区域
   standalone:
     platforms: ["zhihu","wallstreetcn-hot","bilibili-hot-search","thepaper","cls-hot","toutiao","baidu","ifeng","weibo","tieba","douyin"] # 热榜平台 ID 列表（如 ["zhihu", "weibo"]）
