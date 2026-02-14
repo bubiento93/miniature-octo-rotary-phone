@@ -67,7 +67,7 @@ rss:
       name: "塔斯社"
       url: "http://tass.com/rss/v2.xml"
       max_age_days: 3
-      enabled: true
+      enabled: false
     - id: "HBR IdeaCast"
       name: "哈佛商业评论"
       url: "http://feeds.harvardbusiness.org/harvardbusiness/ideacast"
