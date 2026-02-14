@@ -165,14 +165,15 @@ rss:
 #    • 适用场景：避免重复信息干扰
 # ===============================================================
 report:
-  mode: "incremental"                     # 可选: daily | current | incremental
-                                      # ⚠️ 开启调度系统后，此值会被当前时间段的 report_mode 覆盖
-
-
-  display_mode: "keyword"             # 分组维度: keyword | platform
-                                      # keyword: 按关键词分组显示（默认）
-                                      # platform: 按平台/来源分组显示
-
+  mode: "incremental"                     # 增量模式（核心去重，有新增才推）
+  display_mode: "keyword"             # 按关键词分组
+  sort_by_position_first: false
+  rank_threshold: 5                   
+  max_news_per_keyword: 0             
+  # 新增：增量去重强化
+  incremental:
+    dedup_across_platforms: true       # 跨平台增量去重（不同平台同新闻算一条）
+    keep_original: true               # 保留原平台数据最全的那条
   # 关键词组排序方式（仅 display_mode: keyword 时生效）
   # true: 按 frequency_words.txt 中的定义顺序排列
   # false: 按匹配到的热点条数排序（条数多的在前）
@@ -293,7 +294,14 @@ notification:
                                       # 示例：{"content": "{content}"}
                                       # 留空则使用默认格式：{"title": "{title}", "content": "{content}"}
 
-
+# 新增：内容去重核心配置（基于标题+内容指纹，保留数据最全的新闻）
+deduplication:
+      enabled: true                      # 开启全局去重
+      mode: "content_hash"               # 去重依据：content_hash(内容指纹，精准去重)
+      keep_strategy: "max_data"          # 保留策略：max_data(数据字段最多的新闻)
+      time_window: 24                    # 24小时内同事件只保留一条
+      min_similarity: 0.85               # 内容相似度阈值（0-1，越高越严格）
+      ignore_title_suffix: true          # 忽略标题后缀（如【最新】/快讯等）
 # ===============================================================
 # 7. 存储配置
 # ===============================================================
@@ -455,7 +463,8 @@ ai_analysis:
                                     # false: 使用简化格式（排名范围+时间范围+出现次数）
                                     # true: 传递完整排名变化轨迹（如 1(09:30)→2(10:00)→0(11:00)）
                                     # 启用后 AI 能更精确分析热度趋势，但会额外增加 token 消耗（0.5 倍到 1 倍）
-
+  dedup_before_analysis: true        # AI分析前先对热榜+RSS做合并去重
+  keep_max_info: true                # AI分析时保留信息字段最多的新闻
 
 
 
