@@ -237,7 +237,7 @@ standalone:
     include_platforms: []
     include_rss: []
     ai_analysis: true # AI 分析区域
-  standalone:
+    standalone:
     platforms: ["zhihu","wallstreetcn-hot","bilibili-hot-search","thepaper","cls-hot","toutiao","baidu","ifeng","weibo","tieba","douyin"] # 热榜平台 ID 列表（如 ["zhihu", "weibo"]）
     rss_feeds: ["hacker-news","ruanyifeng","yahoo-finance","TASS","HBR IdeaCast"] # RSS 源 ID 列表（如 ["hacker-news"]）
     max_items: 10                           # 每个源最多展示条数（0=不限制）
