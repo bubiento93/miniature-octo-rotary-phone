@@ -167,9 +167,13 @@ rss:
 report:
   mode: "incremental"                     # 增量模式（核心去重，有新增才推）
   display_mode: "keyword"             # 按关键词分组
-  sort_by_position_first: false
-  rank_threshold: 5                   
-  max_news_per_keyword: 0             
+  roup_by: keyword  # 强制按关键词分组（核心）
+  sort_by_position_first: true  # 按配置顺序展示分组，不打乱（企业→科技→时政→医药）
+  max_news_per_keyword: 0  # 全局不限制，由词频文件@数字单独控制每组配额
+  show_keyword_label: true  # 显示分组专属标签（如「企业与品牌」），高亮分组
+  dedup_across_platforms: true  # 跨平台分组内去重，同分组不重复
+  group_separator: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"  # 分组之间加分隔线，视觉上更清晰
+           
   # 新增：增量去重强化
   incremental:
     dedup_across_platforms: true       # 跨平台增量去重（不同平台同新闻算一条）
@@ -241,6 +245,17 @@ standalone:
     platforms: ["zhihu","wallstreetcn-hot","bilibili-hot-search","thepaper","cls-hot","toutiao","baidu","ifeng","weibo","tieba","douyin"] # 热榜平台 ID 列表（如 ["zhihu", "weibo"]）
     rss_feeds: ["hacker-news","ruanyifeng","yahoo-finance","TASS","HBR IdeaCast"] # RSS 源 ID 列表（如 ["hacker-news"]）
     max_items: 10                           # 每个源最多展示条数（0=不限制）
+    # 独立展示区 - 同步强分组
+    standalone:
+    enable: true
+    max_items_per_source: 5
+    group_by: keyword  # 独立展示区也强制按相同分组展示
+    keyword_whitelist: []  # 加载所有分组，不筛选
+    sort_by: rank
+    show_platform: true
+    show_keyword_label: true  # 独立展示区也显示分组标签
+    dedup: true
+    match_global_filter: true
 
 
 # ===============================================================
@@ -480,7 +495,15 @@ ai_analysis:
                                     # 启用后 AI 能更精确分析热度趋势，但会额外增加 token 消耗（0.5 倍到 1 倍）
   dedup_before_analysis: true        # AI分析前先对热榜+RSS做合并去重
   keep_max_info: true                # AI分析时保留信息字段最多的新闻
-
+  # AI分析 - 分组后分析，不混组
+  ai_analysis:
+  enable: true
+  language: zh
+  max_news_count: 100
+  analysis_mode: follow_report  # 跟随报告分组，按组分析
+  include_rss: true
+  pass_timeline: false
+  prompt_file: config/ai_analysis_prompt.txt
 
 
 # ===============================================================
