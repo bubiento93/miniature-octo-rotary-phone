@@ -2,14 +2,22 @@
 #                    TrendRadar 配置文件
 #                      Version: 2.0.0
 # ═══════════════════════════════════════════════════════════════
+# 可视化配置编辑器地址: https://sansan0.github.io/TrendRadar/
+# ===============================================================
+# 1. 基础设置
+# ===============================================================
 app:
   timezone: "Asia/Shanghai"
   show_version_update: true
-
+# ===============================================================
+# 1.5 调度系统
+# ===============================================================
 schedule:
   enabled: true
   preset:  "morning_evening"
-
+# ===============================================================
+# 2. 数据源 - 热榜平台
+# ===============================================================
 platforms:
   enabled: true
   sources:
@@ -37,13 +45,14 @@ platforms:
       name: "抖音"
     - id: "mktnews"
       name: "MKT新闻"
-
-# RSS配置：修正重复项，开启新鲜度过滤
+# ===============================================================
+# 3. 数据源 - RSS 订阅（修正层级，无重复）
+# ===============================================================
 rss:
   enabled: true
   freshness_filter:
     enabled: true
-    max_age_days: 1  # 缩短为1天，避免RSS旧内容过滤，保证增量数据充足
+    max_age_days: 1
   feeds:
     - id: "ruanyifeng"
       name: "阮一峰的网络日志"
@@ -64,8 +73,9 @@ rss:
       url: "http://feeds.harvardbusiness.org/harvardbusiness/ideacast"
       max_age_days: 1
       enabled: true
-
-# 报告模式：修正重复项，放宽增量过滤规则
+# ===============================================================
+# 4. 报告模式（修正重复，层级正确）
+# ===============================================================
 report:
   mode: "incremental"
   display_mode: "keyword"
@@ -79,11 +89,12 @@ report:
     dedup_across_platforms: true
     keep_original: true
   rank_threshold: 5
-
-# 展示配置：修正层级，开启AI分析区域优先显示
+# ===============================================================
+# 5. 推送内容控制（核心修复：缩进+层级，无重复）
+# ===============================================================
 display:
   region_order:
-    - ai_analysis                     # AI分析移到顶部，优先展示
+    - ai_analysis
     - new_items
     - hotlist
     - rss
@@ -94,8 +105,9 @@ display:
     rss: true
     standalone: true
     ai_analysis: true
-
-# 独立展示区：修正重复项，适配关键词分组
+# ===============================================================
+# 6. 独立展示区（修正层级，无重复）
+# ===============================================================
 standalone:
   enable: true
   max_items_per_source: 5
@@ -111,8 +123,9 @@ standalone:
   rss_feeds: ["yahoo-finance","TASS","HBR IdeaCast"]
   max_items: 10
   show_keyword_label: true
-
-# 推送通知：保留原配置，无需修改
+# ===============================================================
+# 7. 推送通知
+# ===============================================================
 notification:
   enabled: true
   channels:
@@ -143,8 +156,9 @@ notification:
     generic_webhook:
       webhook_url: ""
       payload_template: ""
-
-# 去重配置：保留原配置
+# ===============================================================
+# 8. 内容去重
+# ===============================================================
 deduplication:
   enabled: true
   mode: "content_hash"
@@ -152,8 +166,9 @@ deduplication:
   time_window: 24
   min_similarity: 0.85
   ignore_title_suffix: true
-
-# 存储配置：保留原配置
+# ===============================================================
+# 9. 存储配置
+# ===============================================================
 storage:
   backend: "auto"
   formats:
@@ -173,51 +188,53 @@ storage:
   pull:
     enabled: false
     days: 7
-
-# AI模型公共配置：保留你的API信息，适配翻译+分析
+# ===============================================================
+# 10. AI 模型配置（共享）- 层级正确，无错位
+# ===============================================================
 ai:
   model: "deepseek/deepseek-chat"
   api_key: "sk-1f20f04693784257bb1f7cbaa6cc1fba"
   api_base: ""
   timeout: 120
-  temperature: 0.5  # 降低温度，保证AI输出格式稳定，避免JSON报错
+  temperature: 0.5
   max_tokens: 5000
-  num_retries: 2     # 增加重试次数，避免网络波动导致分析失败
+  num_retries: 2
   fallback_models: []
-
-# AI分析配置：核心修复，适配增量模式，保证数据充足
+# ===============================================================
+# 11. AI 分析功能（核心修复：层级正确，无嵌套）
+# ===============================================================
 ai_analysis:
   enabled: true
   language: "Chinese"
   prompt_file: "ai_analysis_prompt.txt"
   mode: "incremental"
-  max_news_for_analysis: 20  # 从150降至20，适配增量模式少量数据，避免AI无数据
+  max_news_for_analysis: 20
   include_rss: true
   include_standalone: true
-  include_rank_timeline: false  # 关闭完整时间线，减少token消耗，避免格式混乱
+  include_rank_timeline: false
   dedup_before_analysis: true
   keep_max_info: true
-  analyze_push_data: true  # 强制分析待推送数据，保证AI有内容
+  analyze_push_data: true
   max_news_count: 12
-
-# AI翻译配置：核心修复，移出嵌套，开启全量翻译（标题+内容+RSS+热榜）
+# ===============================================================
+# 12. AI 翻译功能（核心修复：顶级配置，无嵌套，缩进正确）
+# ===============================================================
 ai_translation:
   enabled: true
   language: "Chinese"
   prompt_file: "ai_translation_prompt.txt"
-  # 翻译范围：全量开启，标题+内容都翻译
   translate_scope:
     hotlist: true
     rss: true
     standalone: true
-    title_only: false  # 关闭仅翻译标题，强制标题+内容全译
-  # RSS专属翻译规则：确保外文RSS全部翻译成中文
+    title_only: false
   rss_translate:
     force_translate: true
     keep_original: false
     translate_description: true
-
-# 高级设置：保留原配置，优化爬虫间隔
+# ===============================================================
+# 13. 高级设置
+# ===============================================================
 advanced:
   debug: false
   version_check_url: "https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/version"
@@ -244,9 +261,4 @@ advanced:
     bark: 4000
     slack: 4000
   batch_send_interval: 3
-  feishu_message_separator: "━━━━━━━━━━━━━━━━"
-    feishu: 30000
-    bark: 4000
-    slack: 4000
-  batch_send_interval: 3              # 批次发送间隔（秒）
   feishu_message_separator: "━━━━━━━━━━━━━━━━"
