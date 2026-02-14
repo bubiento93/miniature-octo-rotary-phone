@@ -495,6 +495,11 @@ ai_analysis:
                                     # 启用后 AI 能更精确分析热度趋势，但会额外增加 token 消耗（0.5 倍到 1 倍）
   dedup_before_analysis: true        # AI分析前先对热榜+RSS做合并去重
   keep_max_info: true                # AI分析时保留信息字段最多的新闻
+  ai:
+  enabled: true
+  analyze_push_data: true  # AI只分析待推送的新闻
+  max_news_count: 12
+  prompt_file: "config/ai_analysis_prompt.txt"
   # AI分析 - 分组后分析，不混组
   ai_analysis:
   enable: true
