@@ -207,7 +207,7 @@ ai_analysis:
   enabled: true
   language: "Chinese"
   prompt_file: "ai_analysis_prompt.txt"
-  mode: "incremental"
+  mode: current"
   max_news_for_analysis: 20
   include_rss: true
   include_standalone: true
