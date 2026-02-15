@@ -84,7 +84,7 @@ rss:
 
     - id: "people new"
       name: "人民日报"
-      url: "http://www.people.com.cn/rss/ywkx.xml"
+      url: "https://rsshub.app/people"
       max_age_days: 3
 
 # ===============================================================
