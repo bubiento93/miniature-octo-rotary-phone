@@ -134,7 +134,7 @@ standalone:
   dedup: true
   match_global_filter: true
   include_platforms: ["zhihu","wallstreetcn-hot","bilibili-hot-search","thepaper","cls-hot","toutiao","baidu","ifeng","weibo","tieba","douyin"]
-  include_rss: ["hacker-news","ruanyifeng","yahoo-finance","TASS","HBR IdeaCast" "NYT""BBC News - World""people new"]
+  include_rss: ["hacker-news","ruanyifeng","yahoo-finance","TASS","HBR IdeaCast", "NYT""BBC News - World","people new"]
   max_items: 10
   show_keyword_label: true
 
