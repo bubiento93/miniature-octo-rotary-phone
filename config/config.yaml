@@ -91,36 +91,36 @@ rss:
 # 4. 报告模式（修正重复，层级正确）
 # ===============================================================
 report:
-  mode: "incremental"
-  display_mode: "keyword"
-  group_by: keyword
-  sort_by_position_first: true
-  max_news_per_keyword: 0
-  show_keyword_label: true
-  dedup_across_platforms: true
-  group_separator: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  show_keyword_label: true  # 显示分组专属标签（如「企业与品牌」），高亮分组
+  dedup_across_platforms: true  # 跨平台分组内去重，同分组不重复
+  group_separator: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"  # 分组之间加分隔线
   incremental:
-    dedup_across_platforms: true
-    keep_original: true
-  rank_threshold: 5
+    dedup_across_platforms: true       # 跨平台增量去重（不同平台同新闻算一条）
+    keep_original: true               # 保留原平台数据最全的那条
+  sort_by_position_first: false
+  rank_threshold: 5                   # 排名高亮阈值
+  max_news_per_keyword: 0             # 每个关键词最大显示数量（0=不限制）
+  mode: "incremental"  # 核心：启用增量推送模式
+
 # ===============================================================
-# 5. 推送内容控制（核心修复：缩进+层级，无重复）
+# 5. 推送内容控制
 # ===============================================================
 display:
   region_order:
-    - ai_analysis
-    - new_items
-    - hotlist
-    - rss
-    - standalone
+    - new_items                       # 1️⃣ 新增热点区域
+    - hotlist                         # 2️⃣ 热榜区域（关键词匹配）
+    - rss                             # 3️⃣ RSS 订阅区域
+    - standalone                      # 4️⃣ 独立展示区
+    - ai_analysis                     # 5️⃣ AI 分析区域
   regions:
-    new_items: true
-    hotlist: true
-    rss: true
-    standalone: true
-    ai_analysis: true
+    new_items: false # 新增热点区域（含热榜新增 + RSS 新增）
+    hotlist: true # 热榜区域（关键词匹配的热点新闻）
+    rss: true # RSS 订阅区域
+    standalone: true # 独立展示区开关
+    ai_analysis: true # AI 分析区域开关
+
 # ===============================================================
-# 6. 独立展示区（修正层级，无重复）
+# 独立展示区配置（合并所有重复定义，只保留一个）
 # ===============================================================
 standalone:
   enable: true
@@ -133,10 +133,11 @@ standalone:
   show_time: true
   dedup: true
   match_global_filter: true
-  platforms: ["zhihu","wallstreetcn-hot","thepaper","toutiao","baidu","ifeng","douyin"]
-  rss_feeds: ["yahoo-finance","TASS","HBR IdeaCast"]
+  include_platforms: ["zhihu","wallstreetcn-hot","bilibili-hot-search","thepaper","cls-hot","toutiao","baidu","ifeng","weibo","tieba","douyin"]
+  include_rss: ["hacker-news","ruanyifeng","yahoo-finance","TASS","HBR IdeaCast" "NYT""BBC News - World""people new"]
   max_items: 10
   show_keyword_label: true
+
 # ===============================================================
 # 7. 推送通知
 # ===============================================================
@@ -174,12 +175,14 @@ notification:
 # 8. 内容去重
 # ===============================================================
 deduplication:
-  enabled: true
-  mode: "content_hash"
-  keep_strategy: "max_data"
-  time_window: 24
-  min_similarity: 0.85
-  ignore_title_suffix: true
+  enabled: true                      # 开启全局去重
+  mode: "content_hash"               # 去重依据：content_hash(内容指纹，精准去重)
+  keep_strategy: "max_data"          # 保留策略：max_data(数据字段最多的新闻)
+  time_window: 24                    # 24小时内同事件只保留一条
+  min_similarity: 0.8                # 调低阈值，减少漏判
+  ignore_title_suffix: true          # 忽略标题后缀（如【最新】/快讯等）
+  ignore_html_tags: true             # 新增：忽略HTML标签干扰（如<p>/<br>）
+
 # ===============================================================
 # 9. 存储配置
 # ===============================================================
@@ -218,18 +221,21 @@ ai:
 # 11. AI 分析功能（核心修复：层级正确，无嵌套）
 # ===============================================================
 ai_analysis:
-  enabled: true
+  enabled: true                     # 是否启用 AI 分析（总开关）
   language: "Chinese"
   prompt_file: "ai_analysis_prompt.txt"
-  mode: current"
-  max_news_for_analysis: 20
+  mode: "incremental"
+  max_news_for_analysis: 150
   include_rss: true
   include_standalone: true
-  include_rank_timeline: false
+  include_rank_timeline: true
   dedup_before_analysis: true
   keep_max_info: true
   analyze_push_data: true
   max_news_count: 12
+  analysis_mode: follow_report
+  pass_timeline: false
+
 # ===============================================================
 # 12. AI 翻译功能（核心修复：顶级配置，无嵌套，缩进正确）
 # ===============================================================
@@ -249,30 +255,35 @@ ai_translation:
 # ===============================================================
 # 13. 高级设置
 # ===============================================================
+# 11. 高级设置（补充RSS新鲜度过滤）
+# ===============================================================
 advanced:
   debug: false
   version_check_url: "https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/version"
   mcp_version_check_url: "https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/version_mcp"
   configs_version_check_url: "https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/version_configs"
   crawler:
-    request_interval: 2000
-    use_proxy: false
+    request_interval: 2000            # 请求间隔（毫秒）
+    use_proxy: false                  # 是否启用代理
     default_proxy: "http://127.0.0.1:10801"
   rss:
-    request_interval: 1000
-    timeout: 15
-    use_proxy: false
-    proxy_url: ""
+    request_interval: 1000            # 请求间隔（毫秒）
+    timeout: 15                       # 请求超时（秒）
+    use_proxy: false                  # 是否使用代理
+    proxy_url: ""                     # RSS 专属代理（留空则使用 crawler.default_proxy）
+    freshness_filter:  # 新增：RSS 24小时新鲜度过滤
+      enabled: true
+      max_age_days: 1                 # 仅推送24小时内发布的RSS文章
   weight:
-    rank: 0.6
-    frequency: 0.3
-    hotness: 0.1
-  max_accounts_per_channel: 3
+    rank: 0.6                         # 排名权重
+    frequency: 0.3                    # 频次权重
+    hotness: 0.1                      # 热度权重
+  max_accounts_per_channel: 3         # 每个渠道最大账号数量
   batch_size:
     default: 4000
     dingtalk: 20000
     feishu: 30000
     bark: 4000
     slack: 4000
-  batch_send_interval: 3
+  batch_send_interval: 3              # 批次发送间隔（秒）
   feishu_message_separator: "━━━━━━━━━━━━━━━━"
