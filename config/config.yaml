@@ -133,8 +133,10 @@ standalone:
   show_time: true
   dedup: true
   match_global_filter: true
-  include_platforms: ["zhihu","wallstreetcn-hot","bilibili-hot-search","thepaper","cls-hot","toutiao","baidu","ifeng","weibo","tieba","douyin"]
-  include_rss: ["hacker-news","ruanyifeng","yahoo-finance","TASS","HBR IdeaCast", "NYT""BBC News - World","people new"]
+  # 先修正 include_platforms（格式规范，元素间加空格）
+  include_platforms: ["zhihu", "wallstreetcn-hot", "bilibili-hot-search", "thepaper", "cls-hot", "toutiao", "baidu", "ifeng", "weibo", "tieba", "douyin"]
+  # 核心修复第137行的 include_rss（补充所有缺失的逗号，规范格式）
+  include_rss: ["hacker-news", "ruanyifeng", "yahoo-finance", "TASS", "HBR IdeaCast", "NYT", "BBC News - World", "people news"]
   max_items: 10
   show_keyword_label: true
 
