@@ -483,57 +483,57 @@ GDP | GDP
 
 #哈佛商业评论（HBR IdeaCast）
 [哈佛商业评论 | HBR IdeaCast]
-商业管理 | Business Management
-企业战略 | Corporate Strategy
+管理 | Management
+战略 | Strategy
 领导力 | Leadership
-职场发展 | Career Development
-商业案例 | Business Cases
-经济趋势 | Economic Trends
-企业创新 | Corporate Innovation
-组织管理 | Organizational Management
-商业思维 | Business Thinking
+商业 | Business
+职场 | Career
+创新 | Innovation
+组织 | Organization
+经济 | Economy
 @8
 
 
 
 #纽约时报（NYT）
 [纽约时报 | The New York Times]
-全球国际新闻 | Global International News
-地缘政治 | Geopolitics
-世界局势 | World Situation
-国际经济 | International Economy
-海外社会热点 | Overseas Social Hot Topics
-全球事件深度报道 | In-depth Coverage of Global Events
-国际外交动态 | International Diplomatic Developments
+国际 | World
+新闻 | News
+政治 | Politics
+经济 | Economy
+社会 | Society
+全球 | Global
 @6
 
 
 
 #BBC 英国（BBC News - World）
-[BBC 英国 | BBC News - World]
-全球世界新闻 | Global World News
-欧洲局势 | European Situation
-国际热点 | International Hot Topics
-英国时政 | UK Current Affairs
-全球社会民生 | Global Social Livelihood
-国际文化 | International Culture
-地缘政治资讯 | Geopolitical Information
+[BBC 英国（BBC News - World）]
+国际 | World
+欧洲 | Europe
+英国 | UK
+新闻 | News
+社会 | Society
+文化 | Culture
+地缘 | Geopolitics
 @7
 
 
 #人民日报（People's Daily）
 [人民日报 | People's Daily]
-国内时政 | Domestic Current Affairs
-高质量发展 | High-quality Development
-共同富裕 | Common Prosperity
-乡村振兴 | Rural Revitalization
-科技创新 | Technological Innovation
-民生保障 | People's Livelihood Security
-国家政策 | National Policies
-产业链供应链 | Industrial Chain & Supply Chain
-社会正能量 | Positive Social Energy
-国内经济发展 | Domestic Economic Development
+时政 | Politics
+发展 | Development
+经济 | Economy
+科技 | Tech
+民生 | People
+政策 | Policy
+创新 | Innovation
+乡村 | Rural
+正能量 | Positive
 @9
+
+
+
 # 🎯 精准匹配修正（不占配额）
 /\bAI\b/i => AI
 /\bML\b/i => 机器学习
